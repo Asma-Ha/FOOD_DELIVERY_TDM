@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.TextView
 import com.example.deliveryapp.R
 
 //custom view for quantity picker
@@ -42,7 +43,7 @@ class QuantityPicker (
             }
 
             fun setValue() {
-                findViewById<EditText>(R.id.quantity).setText(currentValue.toString())
+                findViewById<TextView>(R.id.quantity).setText(currentValue.toString())
             }
 
 

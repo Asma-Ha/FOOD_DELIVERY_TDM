@@ -15,9 +15,6 @@
             android:name=".activities.MainActivity2"
             android:exported="false" />
         <activity
-            android:name=".activities.Registration1"
-            android:exported="false" />
-        <activity
             android:name=".activities.ImportImgActivity"
             android:exported="false" />
         <activity
