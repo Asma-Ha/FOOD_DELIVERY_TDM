@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/graphe"
+    app:startDestination="@id/listRestaurantFragment">
+
+    <fragment
+        android:id="@+id/listRestaurantFragment"
+        android:name="com.example.deliveryapp.fragments.ListRestaurantFragment"
+        android:label="fragment_list_restaurant"
+        tools:layout="@layout/fragment_list_restaurant" >
+        <action
+            android:id="@+id/action_listRestaurantFragment_to_listMenuFragment"
+            app:destination="@id/listMenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listMenuFragment"
+        android:name="com.example.deliveryapp.fragments.ListMenuFragment"
+        android:label="fragment_list_menu"
+        tools:layout="@layout/fragment_list_menu" >
+        <action
+            android:id="@+id/action_listMenuFragment_to_singleMenuFragment"
+            app:destination="@id/singleMenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/singleMenuFragment"
+        android:name="com.example.deliveryapp.fragments.SingleMenuFragment"
+        android:label="fragment_single_menu"
+        tools:layout="@layout/fragment_single_menu" />
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.example.deliveryapp.fragments.CartFragment"
+        android:label="fragment_cart"
+        tools:layout="@layout/fragment_cart" />
+</navigation>
