@@ -32,5 +32,21 @@
         android:id="@+id/cartFragment"
         android:name="com.example.deliveryapp.fragments.CartFragment"
         android:label="fragment_cart"
-        tools:layout="@layout/fragment_cart" />
+        tools:layout="@layout/fragment_cart" >
+        <action
+            android:id="@+id/action_cartFragment_to_validationFragment"
+            app:destination="@id/validationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/validationFragment"
+        android:name="com.example.deliveryapp.fragments.ValidationFragment"
+        android:label="ValidationFragment"
+        tools:layout="@layout/fragment_validation" >
+        <action
+            android:id="@+id/action_validationFragment_to_listRestaurantFragment"
+            app:destination="@id/listRestaurantFragment" />
+        <action
+            android:id="@+id/action_validationFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+    </fragment>
 </navigation>

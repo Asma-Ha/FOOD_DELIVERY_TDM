@@ -48,43 +48,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerView">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/NoteInputLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="24dp"
-            app:layout_constraintBottom_toTopOf="@+id/checkout"
-            app:layout_constraintEnd_toEndOf="@+id/addressInputLayout"
-            app:layout_constraintStart_toStartOf="@+id/addressInputLayout"
-            app:layout_constraintTop_toBottomOf="@+id/addressInputLayout">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/NoteInputEditText"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:hint="Note" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/addressInputLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="16dp"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView9">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/addressEditText"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="Address" />
-        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/textView9"
@@ -121,8 +85,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="8dp"
-            android:text="Check Out"
+            android:layout_marginBottom="16dp"
+            android:text="Continue"
             android:textAllCaps="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -25,7 +25,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/usernameInputLayout"
+        android:id="@+id/mailInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
@@ -34,10 +34,10 @@
         app:layout_constraintStart_toStartOf="@+id/passwordInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/usernameInputEditText"
+            android:id="@+id/mailInputEditText"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Username" />
+            android:hint="email address" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -47,9 +47,9 @@
         android:layout_marginBottom="32dp"
         android:text="Login"
         android:textSize="26dp"
-        app:layout_constraintBottom_toTopOf="@+id/usernameInputLayout"
-        app:layout_constraintEnd_toEndOf="@+id/usernameInputLayout"
-        app:layout_constraintStart_toStartOf="@+id/usernameInputLayout" />
+        app:layout_constraintBottom_toTopOf="@+id/mailInputLayout"
+        app:layout_constraintEnd_toEndOf="@+id/mailInputLayout"
+        app:layout_constraintStart_toStartOf="@+id/mailInputLayout" />
 
     <Button
         android:id="@+id/button"

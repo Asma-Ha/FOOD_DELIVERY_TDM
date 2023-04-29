@@ -1,5 +1,6 @@
 package com.example.deliveryapp.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.deliveryapp.R
 import com.example.deliveryapp.activities.MainActivity2
@@ -34,9 +37,20 @@ class CartFragment : Fragment() {
         binding.total.text = String.format("%.2f", viewModel.cart.total)
         binding.recyclerView.adapter = CartAdapter(viewModel.cart.orders, requireActivity())
         binding.checkout.setOnClickListener {
-            //change activities
-            val intent = Intent(requireActivity(),MainActivity2::class.java)
-            startActivity(intent)
+
+            val pref = requireActivity().getSharedPreferences("info", Context.MODE_PRIVATE)
+            val conn = pref.getBoolean("connected", false)
+
+            if(conn == true) {
+                //start validation fragment
+                binding.root.findNavController().navigate(R.id.action_cartFragment_to_validationFragment)
+            } else {
+                //change activities : go to login
+                val intent = Intent(requireActivity(),MainActivity2::class.java)
+                startActivity(intent)
+            }
+
+
         }
 
     }

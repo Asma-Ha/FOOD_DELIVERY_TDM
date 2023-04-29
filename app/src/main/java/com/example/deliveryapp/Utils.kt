@@ -61,3 +61,10 @@ fun checkPermission(context : Context, requestCode : Int) {
 
 }
 
+fun login(mail : String, password : String) : Boolean {
+   if(mail == "test@gmail.com" && password == "test") {
+       return true
+   }
+    return false
+}
+
