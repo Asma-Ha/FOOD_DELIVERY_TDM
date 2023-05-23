@@ -8,14 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.deliveryapp.R
 import com.example.deliveryapp.activities.MainActivity2
 import com.example.deliveryapp.adapters.CartAdapter
+import com.example.deliveryapp.appDatabase
 import com.example.deliveryapp.databinding.FragmentCartBinding
-import com.example.deliveryapp.models.Menu
+import com.example.deliveryapp.services.CartService
 import com.example.deliveryapp.viewModels.MainViewModel
 
 
@@ -33,22 +33,26 @@ class CartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-        var viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
-        binding.total.text = String.format("%.2f", viewModel.cart.total)
-        binding.recyclerView.adapter = CartAdapter(viewModel.cart.orders, requireActivity())
-        binding.checkout.setOnClickListener {
+        val viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+        binding.total.text = String.format("%.2f", 7.8)
 
+
+        val dao = appDatabase.getInstance(requireActivity())?.getCartDao()
+        val orderLines = CartService(dao).displayAllCartItems()
+
+        binding.recyclerView.adapter = CartAdapter(orderLines, requireActivity())
+        binding.checkout.setOnClickListener {
             val pref = requireActivity().getSharedPreferences("info", Context.MODE_PRIVATE)
             val conn = pref.getBoolean("connected", false)
 
-            if(conn == true) {
-                //start validation fragment
-                binding.root.findNavController().navigate(R.id.action_cartFragment_to_validationFragment)
-            } else {
-                //change activities : go to login
-                val intent = Intent(requireActivity(),MainActivity2::class.java)
-                startActivity(intent)
-            }
+                if(conn == true) {
+                    //start validation fragment
+                    binding.root.findNavController().navigate(R.id.action_cartFragment_to_validationFragment)
+                } else {
+                    //change activities : go to login
+                    val intent = Intent(requireActivity(),MainActivity2::class.java)
+                    startActivity(intent)
+                }
 
 
         }

@@ -1,0 +1,30 @@
+{
+  "restaurant": [
+    {
+      "logo_res": "@drawable/sushi",
+      "name_res": "Sushi Avenue",
+      "type": "Japanese",
+      "rating": 4.0,
+      "location": "456 Elm St",
+      "longitude": -73.4567,
+      "latitude": 40.9012,
+      "nbr_review": 45,
+      "phone": "555-5678",
+      "mail": "info@sushiavenue.com",
+      "instagram": "@sushiavenue"
+    },
+    {
+      "logo_res": "@drawable/dosa",
+      "name_res": "Dosa Hut",
+      "type": "Indian",
+      "rating": 4.2,
+      "location": "789 Oak St",
+      "longitude": -73.8901,
+      "latitude": 40.3456,
+      "nbr_review": 78,
+      "phone": "555-9012",
+      "mail": "info@dosahut.com",
+      "instagram": "@dosahut"
+    }
+  ]
+}

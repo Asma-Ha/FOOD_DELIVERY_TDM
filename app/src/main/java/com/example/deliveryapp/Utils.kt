@@ -10,6 +10,10 @@ import android.provider.MediaStore
 import androidx.activity.result.ActivityResultLauncher
 import androidx.core.app.ActivityCompat
 
+object Constants {
+    const val URL = "https://example.com"
+}
+
 fun openMap(context : Context, lat : Double, long : Double){
     val latitude = lat
     val longitude = long

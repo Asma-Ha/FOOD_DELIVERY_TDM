@@ -16,6 +16,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.deliveryapp.R
+import com.example.deliveryapp.appDatabase
 import com.example.deliveryapp.databinding.ActivityMainBinding
 import com.example.deliveryapp.viewModels.MainViewModel
 
@@ -43,8 +44,6 @@ class MainActivity : AppCompatActivity() {
         var frag : String = pref.getString("fragment", "listRestaurantFragment") ?: "listRestaurantFragment"
 
         navController.navigate(resources.getIdentifier(frag, "id", packageName))
-
-
 
     }
 

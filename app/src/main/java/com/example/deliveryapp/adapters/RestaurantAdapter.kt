@@ -1,32 +1,43 @@
 package com.example.deliveryapp.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.deliveryapp.*
 import com.example.deliveryapp.databinding.RestaurantListItemBinding
 import com.example.deliveryapp.models.Restaurant
 
 
-class RestaurantAdapter(val data:List<Restaurant>, val context : Context):RecyclerView.Adapter<RestaurantAdapter.MyViewHolder>() {
+class RestaurantAdapter(val context : Context):RecyclerView.Adapter<RestaurantAdapter.MyViewHolder>() {
 
+    var data = mutableListOf<Restaurant>()
+
+    fun setRestaurants(restaurants : List<Restaurant>) {
+        this.data = restaurants.toMutableList()
+        notifyDataSetChanged() //notify the observers that data has changed
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(RestaurantListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun getItemCount() = data.size
 
+
+
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.binding.apply {
-            img.setImageResource(data[position].logo)
-            name.text = data[position].name
+           // img.setImageResource(data[position].logo_res)
+            Glide.with(context).load(url + data[position].logo_res).into(img)
+            Log.d("IMAGE", url + data[position].logo_res)
+            name.text = data[position].name_res
             resType.text = data[position].type
             resAdr.text = data[position].location
-            nbReviews.text = data[position].nbr_review.toString()
-            ratings.rating = data[position].rating.toFloat()
+
 
 
             mapIcon.setOnLongClickListener {
@@ -51,7 +62,7 @@ class RestaurantAdapter(val data:List<Restaurant>, val context : Context):Recycl
 
 
             resCard.setOnClickListener {
-                val bundle = bundleOf("id" to data[position].restaurant_id)
+                val bundle = bundleOf("id" to data[position].id_res)
                 Navigation.findNavController(holder.binding.root).navigate(R.id.action_listRestaurantFragment_to_listMenuFragment, bundle)
             }
 

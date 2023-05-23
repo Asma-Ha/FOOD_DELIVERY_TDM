@@ -1,17 +1,21 @@
 package com.example.deliveryapp.models
 
-data class Restaurant(
-    var restaurant_id : String,
-    var logo : Int,
-    var name : String,
-    var type : String,
-    var rating : Double,
-    var location : String,
-    var longitude : Double,
-    var latitude : Double,
-    var nbr_review : Int,
-    var phone : String,
-    var mail : String,
-    var instagram : String,
+import androidx.room.PrimaryKey
 
+
+data class Restaurant(
+    val id_res : Int,
+    val logo_res : String,
+    val name_res : String,
+    val slug : String,
+    val type : String,
+    //val rating : Double,
+    val location : String,
+    val longitude : Double,
+    val latitude : Double,
+    //val nbr_review : Int,
+    val phone : String,
+    val mail : String,
+    val instagram : String,
+    val facebook : String,
     )
