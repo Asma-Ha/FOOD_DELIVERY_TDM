@@ -27,18 +27,31 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //initialize the viewModel
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
 
+        //for bottom navigation view (menu) and action bar (top)
+
+        //find the current fragment within the activity
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        //navcontroller to navigate in the graph
         navController = navHostFragment.navController
+
         NavigationUI.setupWithNavController(binding.navBottom,navController)
         NavigationUI.setupActionBarWithNavController(this, navController)
 
 
+
+
+        //to choose which fragment to go to after the validation fragment
+            //if cancelled : cart
+            //if validated : listRestaurants
 
         val pref = getSharedPreferences("info", Context.MODE_PRIVATE)
         var frag : String = pref.getString("fragment", "listRestaurantFragment") ?: "listRestaurantFragment"
@@ -59,6 +72,7 @@ class MainActivity : AppCompatActivity() {
 
         when (item.itemId) {
 
+            //the logout icon on top
             R.id.logout-> {
                 //logout code
                 val pref = getSharedPreferences("info", Context.MODE_PRIVATE)

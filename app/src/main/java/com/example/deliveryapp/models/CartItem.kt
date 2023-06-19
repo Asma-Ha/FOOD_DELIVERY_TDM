@@ -8,9 +8,10 @@ import androidx.room.PrimaryKey
 data class CartItem(
     @PrimaryKey(autoGenerate = true)
     val id_cartItem : Int? = null,
-    val quantity: Int,
+    var quantity: Int,
     val id_res : Int,
     val name_menu: String,
     val img_menu: String,
-    val price_menu : Double
+    val price_menu : Double,
+    var note : String? = ""
 )

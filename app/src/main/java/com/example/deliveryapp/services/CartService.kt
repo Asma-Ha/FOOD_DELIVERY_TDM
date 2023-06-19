@@ -19,14 +19,6 @@ class CartService(val cartDao: CartDao?) {
         return emptyList()
     }
 
-    fun deleteItemFromCart(cartItem: CartItem) {
-        try {
-            cartDao?.deleteCartItem(cartItem)
-        } catch(e : Exception) {
-            Log.e("deleteItemFromCart", "Error deleting cartItem", e)
-        }
-
-    }
 
     fun addItemtoCart(cartItem: CartItem) {
         try {
@@ -47,15 +39,71 @@ class CartService(val cartDao: CartDao?) {
 
         } catch(e : Exception) {
             Log.e("addItemtoCart", "Error adding cartItem", e)
+            throw(e)
 
         }
 
     }
+
+    fun removeItemFromCart(cartItem: CartItem) {
+        try {
+            //remove from cart
+            cartDao?.deleteCartItem(cartItem);
+        } catch(e : Exception) {
+            Log.e("removeItemFromCart", "Error removing cartItem", e)
+
+        }
+
+    }
+
+    fun getCartTotal() : Double?{
+        var total : Double? = 0.0;
+        try {
+            total = cartDao?.getTotal()
+        } catch(e : Exception) {
+            Log.e("emptyCart", "Error emptying cart", e)
+        }
+        return total;
+    }
+
+    fun getCartItem(name : String, res_id : Int) : CartItem? {
+        try {
+            return cartDao?.getCartItem(name, res_id);
+        } catch(e : Exception) {
+            Log.e("getCartItem", "Error getting an item", e)
+            return null;
+        }
+    }
+
+    fun updateCartItemQuantity(cartItem: CartItem, quantity : Int) {
+        cartItem.quantity += quantity;
+
+        try {
+            cartDao?.updateCartItem(cartItem)
+        } catch (e : Exception) {
+            Log.e("UpdateCartItemQuantity", "Error updating a cart item", e)
+        }
+
+    }
+
+    fun updateCartItemNote(cartItem: CartItem, note : String) {
+        cartItem.note = note;
+
+        try {
+            cartDao?.updateCartItem(cartItem)
+        } catch (e : Exception) {
+            Log.e("UpdateCartItemQuantity", "Error updating a cart item", e)
+        }
+
+    }
+
+
+
     fun emptyCart() {
         try {
             cartDao?.deleteAllCartItems()
         } catch(e : Exception) {
-
+            Log.e("emptyCart", "Error emptying cart", e)
         }
     }
 }

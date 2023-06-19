@@ -1,60 +1,89 @@
 package com.example.deliveryapp.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.deliveryapp.R
+import android.widget.Toast
+import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.ViewModelProvider
+import com.example.deliveryapp.appDatabase
+import com.example.deliveryapp.databinding.FragmentMenuNoteBinding
+import com.example.deliveryapp.models.CartItem
+import com.example.deliveryapp.services.CartService
+import com.example.deliveryapp.viewModels.MainViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [MenuNoteFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class MenuNoteFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+class MenuNoteFragment : DialogFragment() {
+    lateinit var binding : FragmentMenuNoteBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_menu_note, container, false)
+        binding = FragmentMenuNoteBinding.inflate(layoutInflater)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MenuNoteFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MenuNoteFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        var viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+
+
+        binding.addnote.setOnClickListener {
+
+            //add item to cart
+            val menu = viewModel.menu
+            if(menu != null) {
+                //create new orderline
+                val dao = appDatabase.getInstance(requireActivity())?.getCartDao()
+                if(dao == null) {
+                    Log.e("DATABASE : ", "DATABASE", Exception("exception"))
+                }
+
+                //if menu is already in cart, increment quantity
+                val item =  CartService(dao).getCartItem(menu.name_menu, menu.id_res)
+                if (item != null) {
+                    try {
+                        CartService(dao).updateCartItemQuantity(item, viewModel.quantity)
+                        if(!binding.note.text.toString().isBlank()) {
+                            //if there is a new note : update it
+                            CartService(dao).updateCartItemNote(item, binding.note.text.toString())
+                        }
+                    } catch (e: Exception) {
+                        Log.e("Cart Exception", "Error updating cart item", e)
+                    }
+
+                }
+
+                //else create a new cartItem
+                else{
+                    val cartItem = CartItem(id_res = menu.id_res,
+                        name_menu = menu.name_menu,
+                        price_menu = menu.price_menu,
+                        img_menu = menu.img_menu,
+                        note = binding.note.getText().toString(),
+                        quantity = viewModel.quantity)
+                    try {
+                        CartService(dao).addItemtoCart(cartItem)
+                        Toast.makeText(context, "item added to cart", Toast.LENGTH_LONG).show()
+                        dismiss()
+                    } catch (e: Exception) {
+                        Log.e("Cart Exception", "Error adding cart item", e)
+                        Toast.makeText(context, "Error : cart contains items from another restaurant", Toast.LENGTH_LONG).show()
+                        dismiss()
+                    }
                 }
             }
+
+        }
+
+        binding.cancelnote.setOnClickListener {
+            Toast.makeText(context, "canceled", Toast.LENGTH_LONG).show()
+            dismiss()
+        }
     }
+
+
 }

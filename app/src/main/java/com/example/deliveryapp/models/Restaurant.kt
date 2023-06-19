@@ -18,4 +18,5 @@ data class Restaurant(
     val mail : String,
     val instagram : String,
     val facebook : String,
+    val deliveryfees : Double,
     )

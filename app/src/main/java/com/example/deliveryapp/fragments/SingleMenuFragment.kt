@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.deliveryapp.appDatabase
@@ -33,6 +34,7 @@ class SingleMenuFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         var viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         val menu = viewModel.menu
+
         if(menu != null) {
             binding.mealName.text = menu.name_menu
 
@@ -50,26 +52,10 @@ class SingleMenuFragment : Fragment() {
             }
 
             binding.cartBtn.setOnClickListener {
-                val quant = binding.quantityPicker.currentValue
-
-                //create new orderline
-                val dao = appDatabase.getInstance(requireActivity())?.getCartDao()
-                if(dao == null) {
-                    Log.e("DATABASE : ", "DATABASE", Exception("exception"))
-                }
-
-                val cartItem = CartItem(id_res = menu.id_res,
-                    name_menu = menu.name_menu,
-                    price_menu = menu.price_menu,
-                    img_menu = menu.img_menu,
-                    quantity = quant)
-                try {
-                    CartService(dao).addItemtoCart(cartItem)
-                } catch (e: Exception) {
-                    Log.e("Cart Exception", "Error adding cart item", e)
-                }
-
-
+                //show pop up to add note
+                val showPopUp = MenuNoteFragment()
+                viewModel.quantity = binding.quantityPicker.currentValue
+                showPopUp.show((activity as AppCompatActivity).supportFragmentManager, "showPopUp")
             }
         }
 

@@ -5,12 +5,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.deliveryapp.*
 import com.example.deliveryapp.databinding.RestaurantListItemBinding
 import com.example.deliveryapp.models.Restaurant
+import com.example.deliveryapp.viewModels.MainViewModel
 
 
 class RestaurantAdapter(val context : Context):RecyclerView.Adapter<RestaurantAdapter.MyViewHolder>() {
@@ -33,7 +36,7 @@ class RestaurantAdapter(val context : Context):RecyclerView.Adapter<RestaurantAd
         holder.binding.apply {
            // img.setImageResource(data[position].logo_res)
             Glide.with(context).load(url + data[position].logo_res).into(img)
-            Log.d("IMAGE", url + data[position].logo_res)
+            //Log.d("IMAGE", url + data[position].logo_res)
             name.text = data[position].name_res
             resType.text = data[position].type
             resAdr.text = data[position].location
@@ -62,6 +65,9 @@ class RestaurantAdapter(val context : Context):RecyclerView.Adapter<RestaurantAd
 
 
             resCard.setOnClickListener {
+                var viewModel = ViewModelProvider(context as ViewModelStoreOwner).get(MainViewModel::class.java)
+                viewModel.res_name = data[position].name_res
+                viewModel.res_img = data[position].logo_res
                 val bundle = bundleOf("id" to data[position].id_res)
                 Navigation.findNavController(holder.binding.root).navigate(R.id.action_listRestaurantFragment_to_listMenuFragment, bundle)
             }

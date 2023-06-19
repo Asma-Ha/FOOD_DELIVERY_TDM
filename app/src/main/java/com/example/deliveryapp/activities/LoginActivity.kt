@@ -8,18 +8,15 @@ import android.os.Bundle
 
 import android.widget.Toast
 import androidx.core.content.edit
-import androidx.navigation.findNavController
-import com.example.deliveryapp.R
-import com.example.deliveryapp.databinding.ActivityMain2Binding
-import com.example.deliveryapp.fragments.ValidationFragment
+import com.example.deliveryapp.databinding.ActivityLoginBinding
 import com.example.deliveryapp.login
 
-class MainActivity2 : AppCompatActivity() {
-    private lateinit var binding: ActivityMain2Binding
+class LoginActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMain2Binding.inflate(layoutInflater)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
@@ -31,6 +28,7 @@ class MainActivity2 : AppCompatActivity() {
                 Toast.makeText(this, "Please enter valid credentials", Toast.LENGTH_SHORT).show()
             } else {
                 val conn = login(mail, password)
+
                 //save in local
                 val pref = getSharedPreferences("info", Context.MODE_PRIVATE)
                 pref.edit{
@@ -49,6 +47,10 @@ class MainActivity2 : AppCompatActivity() {
             }
 
         }
+    }
+
+    fun login() {
+
     }
 
 }

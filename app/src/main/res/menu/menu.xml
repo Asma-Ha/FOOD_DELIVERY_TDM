@@ -9,11 +9,13 @@
         android:enabled="true"
         app:itemIconTint = "@color/greenSecond"
         app:itemTextColor = "@color/greenSecond"
-        android:title="Home" />
+        android:title="Home"
+        app:destination="@id/listRestaurantFragment"/>
     <item
         android:id="@+id/cartFragment"
         android:icon="@drawable/cart"
         android:visible="true"
         android:enabled="true"
-        android:title="Cart" />
+        android:title="Cart"
+        app:destination="@id/cartFragment"/>
 </menu>

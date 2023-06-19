@@ -1,3 +1,6 @@
 package com.example.deliveryapp.models
 
-data class LoginCredentials()
+data class LoginCredentials(
+    val username: String,
+    val password: String
+)

@@ -7,6 +7,7 @@ import com.example.deliveryapp.url
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -17,6 +18,10 @@ interface RestaurantEndpoint {
 
     @GET("restaurants/{id}/getRecipes")
     suspend fun getRecipes(@Path("id") id: String): Response<List<Menu>>
+
+    @GET("restaurants/{id}/getDeliveryPrice")
+    suspend fun getDeliveryPrice(@Path("id") id: String): Response<Double>
+
 
     //singleton
     companion object {

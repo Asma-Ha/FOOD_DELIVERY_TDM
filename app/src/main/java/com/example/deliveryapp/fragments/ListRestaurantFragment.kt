@@ -56,6 +56,7 @@ class ListRestaurantFragment : Fragment() {
         //errors
         restaurantViewModel.err.observe(requireActivity()) {err ->
             Toast.makeText(requireContext(), err,Toast.LENGTH_SHORT).show()
+
         }
 
         //restaurants list
