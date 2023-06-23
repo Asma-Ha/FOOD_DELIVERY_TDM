@@ -1,0 +1,80 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="340dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/pop_up"
+    android:clipToOutline="true"
+    android:outlineProvider="background"
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="30dp"
+    tools:context=".fragments.RestaurantReviewFragment">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:fontFamily="@font/montserrat_medium"
+        android:textColor="@android:color/black"
+        android:layout_height="wrap_content"
+        android:text="Rate the Restaurant's Service and give it a Review"
+        android:gravity="center"
+        android:layout_marginBottom="18dp"
+        android:layout_gravity="center_horizontal"
+        android:textSize="18sp" />
+
+    <RatingBar
+        android:id="@+id/rating"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:numStars="5"
+        android:rating="3"
+        android:stepSize="0.5"
+        android:progressBackgroundTint="@android:color/black"
+        android:scaleX="0.5"
+        android:scaleY="0.5"
+        android:contentDescription="Rating Bar"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/review"
+
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginBottom="12dp"
+        android:gravity="bottom"
+        android:fontFamily="@font/montserrat_medium"
+        android:hint="Say Anything!"
+        android:textColor="#000000"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:padding="4dp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/cancelReview"
+            android:fontFamily="@font/montserrat_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:textAllCaps="false"
+            android:background="@drawable/button_outlined"
+            android:text="Cancel" />
+
+        <Button
+            android:id="@+id/submitReview"
+            android:fontFamily="@font/montserrat_medium"
+            android:layout_width="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:textAllCaps="false"
+            android:background="@drawable/button_primary"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="Sumbit" />
+
+    </LinearLayout>
+
+</LinearLayout>

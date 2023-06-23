@@ -5,14 +5,18 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 
 import android.widget.Toast
 import androidx.core.content.edit
 import com.example.deliveryapp.databinding.ActivityLoginBinding
 import com.example.deliveryapp.login
+import com.example.deliveryapp.models.LoginCredentials
+import com.example.deliveryapp.services.AuthenticationService
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var authenticationService: AuthenticationService
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -27,30 +31,40 @@ class LoginActivity : AppCompatActivity() {
             if (mail.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Please enter valid credentials", Toast.LENGTH_SHORT).show()
             } else {
-                val conn = login(mail, password)
-
-                //save in local
-                val pref = getSharedPreferences("info", Context.MODE_PRIVATE)
-                pref.edit{
-                    putBoolean("connected", conn)
-                    putString("fragment", "validationFragment")
-                }
-
-                if(conn) {
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                } else {
-                    Toast.makeText(this, "Invalid credentials", Toast.LENGTH_SHORT).show()
-                }
-
+                login(mail, password)
             }
 
         }
     }
 
-    fun login() {
+    private fun login(mail :String, password : String){
 
+        authenticationService = AuthenticationService()
+        authenticationService.login(LoginCredentials(mail, password))
+
+
+        authenticationService.result.observe(this){ user ->
+            var conn = false;
+            Log.d("USER", "user "+ user)
+            if(!user.isEmpty() && user != null) {
+                conn = true
+            }
+
+            val pref = getSharedPreferences("info", Context.MODE_PRIVATE)
+            pref.edit{
+                putBoolean("connected", conn)
+                putString("fragment", "validationFragment")
+                putString("id", user)
+            }
+
+            if(conn) {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                Log.d("wep", "wep")
+                Toast.makeText(this, "Invalid credentialssss", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
-
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.deliveryapp.models.Menu
 import com.example.deliveryapp.models.Restaurant
+import com.example.deliveryapp.models.Review
 import com.example.deliveryapp.retrofit.RestaurantEndpoint
 import kotlinx.coroutines.*
 
@@ -30,6 +31,10 @@ object DeliveryFeesCache {
 class RestaurantViewModel : ViewModel() {
     var restaurants = MutableLiveData<List<Restaurant>>()
     var menus = MutableLiveData<List<Menu>>()
+    var reviews = MutableLiveData<List<Review>>()
+
+
+
     val loading = MutableLiveData<Boolean>()
     val err = MutableLiveData<String>()
 
@@ -88,7 +93,7 @@ class RestaurantViewModel : ViewModel() {
 
                     menus.value = response.body()!!.toMutableList();
                 } else {
-                    err.value = "Une erreur s'est produite"
+                    err.value = "Une erreur s'est produite lors de récupération des menus"
                 }
             }
         }
@@ -96,6 +101,36 @@ class RestaurantViewModel : ViewModel() {
         //to avoid getting the prev list of menus while the new one is loading.
         menus = MutableLiveData<List<Menu>>();
     }
+
+
+    fun loadReviews(id : Int) {
+
+        if(reviews.value == null){
+            loading.value = true
+        }
+
+        CoroutineScope(Dispatchers.IO+ exceptionHandler).launch {
+
+            val response = RestaurantEndpoint.createEndpoint().getReviews(id.toString());
+            //main for interaction with UI
+            withContext(Dispatchers.Main) {
+
+                loading.value = false //hide progress bar
+                if(response.isSuccessful && response.body() != null) {
+
+                    reviews.value = response.body()!!.toMutableList();
+                } else {
+                    err.value = "Une erreur s'est produite lors de la récupération des reviews"
+                }
+            }
+        }
+
+        //to avoid getting the prev list of reviews while the new one is loading.
+        reviews = MutableLiveData<List<Review>>();
+    }
+
+
+
 
     fun getRestaurantDeliveryFee(res_id : Int) : Double? {
 

@@ -28,6 +28,7 @@ class MenuNoteFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         var viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
 
 

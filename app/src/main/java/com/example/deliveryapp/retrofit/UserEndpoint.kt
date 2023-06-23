@@ -13,7 +13,7 @@ import retrofit2.http.POST
 interface UserEndpoint {
 
     @POST("users/login")
-    suspend fun login(@Body loginRequest: LoginCredentials) : Response<User>
+    suspend fun login(@Body loginRequest: LoginCredentials) : Response<String>
 
     companion object {
         @Volatile

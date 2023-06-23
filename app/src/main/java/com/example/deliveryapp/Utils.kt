@@ -9,6 +9,8 @@ import android.Manifest
 import android.provider.MediaStore
 import androidx.activity.result.ActivityResultLauncher
 import androidx.core.app.ActivityCompat
+import com.example.deliveryapp.models.LoginCredentials
+import com.example.deliveryapp.services.AuthenticationService
 
 object Constants {
     const val URL = "https://example.com"
@@ -65,8 +67,8 @@ fun checkPermission(context : Context, requestCode : Int) {
 
 }
 
-fun login(mail : String, password : String) : Boolean {
-   if(mail == "test@gmail.com" && password == "test") {
+fun login(mail : String, password : String, activity: Activity) : Boolean {
+    if(mail == "test@gmail.com" && password == "test") {
        return true
    }
     return false

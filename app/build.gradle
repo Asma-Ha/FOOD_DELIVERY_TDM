@@ -73,4 +73,7 @@ dependencies {
     //map
     implementation 'com.google.android.material:material:1.4.0'
 
+    //for round images
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
 }

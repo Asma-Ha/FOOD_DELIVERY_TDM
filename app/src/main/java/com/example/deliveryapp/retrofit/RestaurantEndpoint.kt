@@ -1,14 +1,16 @@
 package com.example.deliveryapp.retrofit
 
 import android.util.Log
-import com.example.deliveryapp.models.Menu
-import com.example.deliveryapp.models.Restaurant
+import com.example.deliveryapp.models.*
 import com.example.deliveryapp.url
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Body
+import retrofit2.http.Field
 
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface RestaurantEndpoint {
@@ -22,7 +24,11 @@ interface RestaurantEndpoint {
     @GET("restaurants/{id}/getDeliveryPrice")
     suspend fun getDeliveryPrice(@Path("id") id: String): Response<Double>
 
+    @GET("restaurants/{id}/getReviews")
+    suspend fun getReviews(@Path("id") id: String) : Response<List<Review>>
 
+    @POST("restaurants/reviews")
+    suspend fun addReview(@Body rev : ReviewSub) : Response<String>
     //singleton
     companion object {
         @Volatile
