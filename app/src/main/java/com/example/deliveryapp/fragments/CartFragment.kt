@@ -51,11 +51,19 @@ class CartFragment : Fragment(), CartAdapter.CartItemDeleteListener {
 
             //delivery fees
             val res_id = orderLines[0].id_res
+
+            val pref = requireActivity().getSharedPreferences("info", Context.MODE_PRIVATE)
+            pref.edit().putString("id_res", res_id.toString()).apply()
+            Log.d("restaurant id", ""+res_id.toString())
+
             //if there are items in the cart, update the delivery fees accordingly
+
+
             var delivery_fees = restaurantViewModel.getRestaurantDeliveryFee(res_id)
             if(delivery_fees != null) {
                 this.deliveryfees = delivery_fees;
             }
+
             binding.deliveryFees.text = String.format("%.2f", this.deliveryfees)
 
 

@@ -38,12 +38,12 @@ class RestaurantReviewFragment : DialogFragment() {
             val usr_id = pref.getString("id", "-1")?.toIntOrNull() ?: -1
 
 
-            val id_res = arguments?.getInt("id_res") ?: -1
+            val id_res = pref.getString("id_res", "-1")
             Log.d("HIII", id_res.toString())
 
             //create a new entry in the remote database
             val reviewService = ReviewsService()
-            reviewService.addReview(ReviewSub(usr_id, id_res, binding.review.getText().toString(), binding.rating.numStars.toDouble()))
+            reviewService.addReview(ReviewSub(usr_id, id_res?.toIntOrNull() ?:-1, binding.review.getText().toString(), binding.rating.numStars.toDouble()))
             dismiss()
         }
 

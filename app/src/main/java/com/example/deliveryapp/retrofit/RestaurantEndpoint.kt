@@ -30,6 +30,9 @@ interface RestaurantEndpoint {
     @POST("restaurants/reviews")
     suspend fun addReview(@Body rev : ReviewSub) : Response<String>
     //singleton
+
+    @POST("orders/")
+    suspend fun addOrder(@Body order : Order) : Response<String>
     companion object {
         @Volatile
         var endpoint : RestaurantEndpoint? = null

@@ -13,6 +13,8 @@ import com.example.deliveryapp.databinding.ActivityLoginBinding
 import com.example.deliveryapp.login
 import com.example.deliveryapp.models.LoginCredentials
 import com.example.deliveryapp.services.AuthenticationService
+import com.google.firebase.FirebaseApp
+import com.google.firebase.messaging.FirebaseMessaging
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -31,11 +33,13 @@ class LoginActivity : AppCompatActivity() {
             if (mail.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Please enter valid credentials", Toast.LENGTH_SHORT).show()
             } else {
+                Log.d("login", "button works")
                 login(mail, password)
             }
 
         }
     }
+
 
     private fun login(mail :String, password : String){
 
@@ -44,8 +48,7 @@ class LoginActivity : AppCompatActivity() {
 
 
         authenticationService.result.observe(this){ user ->
-            var conn = false;
-            Log.d("USER", "user "+ user)
+            var conn = false
             if(!user.isEmpty() && user != null) {
                 conn = true
             }
@@ -62,7 +65,7 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             } else {
-                Log.d("wep", "wep")
+                //Log.d("wep", "wep")
                 Toast.makeText(this, "Invalid credentialssss", Toast.LENGTH_SHORT).show()
             }
         }

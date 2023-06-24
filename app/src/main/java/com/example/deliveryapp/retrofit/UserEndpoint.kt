@@ -2,18 +2,27 @@ package com.example.deliveryapp.retrofit
 
 import android.util.Log
 import com.example.deliveryapp.models.LoginCredentials
-import com.example.deliveryapp.models.User
+import com.example.deliveryapp.models.Token
 import com.example.deliveryapp.url
+import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.POST
+import retrofit2.http.Path
+
 
 interface UserEndpoint {
 
     @POST("users/login")
     suspend fun login(@Body loginRequest: LoginCredentials) : Response<String>
+
+    @POST("notifications/{id}")
+    suspend fun updateToken(
+        @Path("id") id: String,
+        @Body token: Token
+    ): Response<String>
 
     companion object {
         @Volatile
