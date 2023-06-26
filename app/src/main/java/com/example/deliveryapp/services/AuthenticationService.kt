@@ -3,6 +3,7 @@ package com.example.deliveryapp.services
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.deliveryapp.models.LoginCredentials
+import com.example.deliveryapp.models.SignupCredentials
 import com.example.deliveryapp.models.Token
 import com.example.deliveryapp.models.User
 import com.example.deliveryapp.retrofit.UserEndpoint
@@ -56,5 +57,28 @@ class AuthenticationService {
             }
         }
     }
+
+    fun signup(signupCredentials: SignupCredentials) {
+        result = MutableLiveData<String>()
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                Log.d("USER LOGIN FFS", "h")
+                val response = UserEndpoint.createEndpoint().signup(signupCredentials)
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful && response.body() != null) {
+                        result.value = response.body()
+                    } else {
+                        result.value= ""
+                    }
+                }
+
+            } catch (err: Exception) {
+                withContext(Dispatchers.Main) {
+                    error.value = "Une erreur s'est produite lors du login"
+                }
+            }
+        }
+    }
+
 
 }

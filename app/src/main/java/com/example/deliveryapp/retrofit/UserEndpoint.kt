@@ -2,6 +2,7 @@ package com.example.deliveryapp.retrofit
 
 import android.util.Log
 import com.example.deliveryapp.models.LoginCredentials
+import com.example.deliveryapp.models.SignupCredentials
 import com.example.deliveryapp.models.Token
 import com.example.deliveryapp.url
 import okhttp3.ResponseBody
@@ -24,6 +25,8 @@ interface UserEndpoint {
         @Body token: Token
     ): Response<String>
 
+    @POST("users/signup")
+    suspend fun signup(@Body signupCredentials: SignupCredentials) : Response<String>
     companion object {
         @Volatile
         var endpoint : UserEndpoint? = null

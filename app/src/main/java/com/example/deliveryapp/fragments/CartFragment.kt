@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.deliveryapp.R
+import com.example.deliveryapp.activities.AuthenticationActivity
 import com.example.deliveryapp.activities.LoginActivity
 import com.example.deliveryapp.adapters.CartAdapter
 import com.example.deliveryapp.appDatabase
@@ -89,7 +90,7 @@ class CartFragment : Fragment(), CartAdapter.CartItemDeleteListener {
                     binding.root.findNavController().navigate(R.id.action_cartFragment_to_validationFragment)
                 } else {
                     //change activities : go to login
-                    val intent = Intent(requireActivity(),LoginActivity::class.java)
+                    val intent = Intent(requireActivity(),AuthenticationActivity::class.java)
                     startActivity(intent)
                 }
             }
