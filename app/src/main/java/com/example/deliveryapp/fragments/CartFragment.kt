@@ -14,12 +14,10 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.deliveryapp.R
 import com.example.deliveryapp.activities.AuthenticationActivity
-import com.example.deliveryapp.activities.LoginActivity
 import com.example.deliveryapp.adapters.CartAdapter
 import com.example.deliveryapp.appDatabase
 import com.example.deliveryapp.databinding.FragmentCartBinding
 import com.example.deliveryapp.services.CartService
-import com.example.deliveryapp.viewModels.MainViewModel
 import com.example.deliveryapp.viewModels.RestaurantViewModel
 
 
